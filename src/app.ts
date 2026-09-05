@@ -5,7 +5,7 @@ import Fastify, {
 import { createContainer, type ContainerOverrides } from "./container.js";
 import { isDomainError } from "./domain/errors.js";
 import { healthRoutes } from "./routes/health.js";
-import { projectRoutes } from "./routes/projects.js";
+import { itemRoutes } from "./routes/items.js";
 import { taskRoutes } from "./routes/tasks.js";
 
 export interface BuildAppOptions {
@@ -53,7 +53,7 @@ export function buildApp(options: BuildAppOptions = {}): FastifyInstance {
 
   app.register(async (instance) => {
     await healthRoutes(instance);
-    await projectRoutes(instance, container);
+    await itemRoutes(instance, container);
     await taskRoutes(instance, container);
   });
 

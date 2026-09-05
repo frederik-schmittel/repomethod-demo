@@ -1,5 +1,6 @@
 export type ErrorCode =
   | "not_found"
+  | "bad_request"
   | "validation_error"
   | "conflict";
 
@@ -26,6 +27,13 @@ export class NotFoundError extends DomainError {
   constructor(resource: string, id: string) {
     super("not_found", 404, `${resource} ${id} was not found`, { id });
     this.name = "NotFoundError";
+  }
+}
+
+export class BadRequestError extends DomainError {
+  constructor(message: string, details: Record<string, string> = {}) {
+    super("bad_request", 400, message, details);
+    this.name = "BadRequestError";
   }
 }
 

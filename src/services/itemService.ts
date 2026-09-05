@@ -1,22 +1,18 @@
 import { NotFoundError, ValidationError } from "../domain/errors.js";
-import type {
-  CreateProjectInput,
-  Project,
-  UpdateProjectInput,
-} from "../domain/types.js";
+import type { CreateItemInput, Item, UpdateItemInput } from "../domain/types.js";
 import type { Clock } from "../lib/clock.js";
 import { newId } from "../lib/id.js";
-import type { ProjectRepository } from "../repositories/projectRepository.js";
+import type { ItemRepository } from "../repositories/itemRepository.js";
 
 const NAME_MIN = 1;
 const NAME_MAX = 120;
 const DESCRIPTION_MAX = 2000;
 
-export interface ProjectService {
-  list(): Project[];
-  get(id: string): Project;
-  create(input: CreateProjectInput): Project;
-  update(id: string, input: UpdateProjectInput): Project;
+export interface ItemService {
+  list(): Item[];
+  get(id: string): Item;
+  create(input: CreateItemInput): Item;
+  update(id: string, input: UpdateItemInput): Item;
   remove(id: string): void;
 }
 
@@ -46,36 +42,36 @@ function assertDescription(description: unknown): string {
   return description;
 }
 
-export function createProjectService(
-  repo: ProjectRepository,
+export function createItemService(
+  repo: ItemRepository,
   clock: Clock,
-): ProjectService {
+): ItemService {
   return {
-    list(): Project[] {
+    list(): Item[] {
       return repo.list();
     },
-    get(id: string): Project {
-      const project = repo.getById(id);
-      if (!project) {
-        throw new NotFoundError("project", id);
+    get(id: string): Item {
+      const item = repo.getById(id);
+      if (!item) {
+        throw new NotFoundError("item", id);
       }
-      return project;
+      return item;
     },
-    create(input: CreateProjectInput): Project {
+    create(input: CreateItemInput): Item {
       const now = clock.now();
-      const project: Project = {
-        id: newId("prj"),
+      const item: Item = {
+        id: newId("itm"),
         name: assertName(input.name),
         description: assertDescription(input.description),
         createdAt: now,
         updatedAt: now,
       };
-      repo.save(project);
-      return project;
+      repo.save(item);
+      return item;
     },
-    update(id: string, input: UpdateProjectInput): Project {
+    update(id: string, input: UpdateItemInput): Item {
       const current = this.get(id);
-      const next: Project = {
+      const next: Item = {
         ...current,
         name: input.name === undefined ? current.name : assertName(input.name),
         description:
@@ -90,7 +86,7 @@ export function createProjectService(
     remove(id: string): void {
       const existed = repo.delete(id);
       if (!existed) {
-        throw new NotFoundError("project", id);
+        throw new NotFoundError("item", id);
       }
     },
   };

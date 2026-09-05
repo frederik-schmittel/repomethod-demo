@@ -8,18 +8,17 @@ import {
 } from "../domain/types.js";
 import type { Clock } from "../lib/clock.js";
 import { newId } from "../lib/id.js";
-import type { ProjectRepository } from "../repositories/projectRepository.js";
 import type { TaskRepository } from "../repositories/taskRepository.js";
 
 const TITLE_MIN = 1;
 const TITLE_MAX = 200;
 
 export interface TaskService {
-  listByProject(projectId: string): Task[];
-  get(projectId: string, taskId: string): Task;
-  create(projectId: string, input: CreateTaskInput): Task;
-  update(projectId: string, taskId: string, input: UpdateTaskInput): Task;
-  remove(projectId: string, taskId: string): void;
+  list(): Task[];
+  get(id: string): Task;
+  create(input: CreateTaskInput): Task;
+  update(id: string, input: UpdateTaskInput): Task;
+  remove(id: string): void;
 }
 
 function assertTitle(title: unknown): string {
@@ -46,45 +45,34 @@ function assertStatus(status: unknown, fallback: TaskStatus): TaskStatus {
 }
 
 export function createTaskService(
-  taskRepo: TaskRepository,
-  projectRepo: ProjectRepository,
+  repo: TaskRepository,
   clock: Clock,
 ): TaskService {
-  function assertProject(projectId: string): void {
-    if (!projectRepo.getById(projectId)) {
-      throw new NotFoundError("project", projectId);
-    }
-  }
-
   return {
-    listByProject(projectId: string): Task[] {
-      assertProject(projectId);
-      return taskRepo.listByProject(projectId);
+    list(): Task[] {
+      return repo.list();
     },
-    get(projectId: string, taskId: string): Task {
-      assertProject(projectId);
-      const task = taskRepo.getById(taskId);
-      if (!task || task.projectId !== projectId) {
-        throw new NotFoundError("task", taskId);
+    get(id: string): Task {
+      const task = repo.getById(id);
+      if (!task) {
+        throw new NotFoundError("task", id);
       }
       return task;
     },
-    create(projectId: string, input: CreateTaskInput): Task {
-      assertProject(projectId);
+    create(input: CreateTaskInput): Task {
       const now = clock.now();
       const task: Task = {
         id: newId("tsk"),
-        projectId,
         title: assertTitle(input.title),
         status: assertStatus(input.status, "open"),
         createdAt: now,
         updatedAt: now,
       };
-      taskRepo.save(task);
+      repo.save(task);
       return task;
     },
-    update(projectId: string, taskId: string, input: UpdateTaskInput): Task {
-      const current = this.get(projectId, taskId);
+    update(id: string, input: UpdateTaskInput): Task {
+      const current = this.get(id);
       const next: Task = {
         ...current,
         title:
@@ -92,12 +80,14 @@ export function createTaskService(
         status: assertStatus(input.status, current.status),
         updatedAt: clock.now(),
       };
-      taskRepo.save(next);
+      repo.save(next);
       return next;
     },
-    remove(projectId: string, taskId: string): void {
-      this.get(projectId, taskId);
-      taskRepo.delete(taskId);
+    remove(id: string): void {
+      const existed = repo.delete(id);
+      if (!existed) {
+        throw new NotFoundError("task", id);
+      }
     },
   };
 }

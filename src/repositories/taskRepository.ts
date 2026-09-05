@@ -1,11 +1,10 @@
 import type { Task } from "../domain/types.js";
 
 export interface TaskRepository {
-  listByProject(projectId: string): Task[];
+  list(): Task[];
   getById(id: string): Task | undefined;
   save(task: Task): void;
   delete(id: string): boolean;
-  deleteByProject(projectId: string): number;
   clear(): void;
 }
 
@@ -18,10 +17,10 @@ export function createInMemoryTaskRepository(
   }
 
   return {
-    listByProject(projectId: string): Task[] {
-      return [...store.values()]
-        .filter((task) => task.projectId === projectId)
-        .sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    list(): Task[] {
+      return [...store.values()].sort((a, b) =>
+        a.createdAt.localeCompare(b.createdAt),
+      );
     },
     getById(id: string): Task | undefined {
       return store.get(id);
@@ -31,16 +30,6 @@ export function createInMemoryTaskRepository(
     },
     delete(id: string): boolean {
       return store.delete(id);
-    },
-    deleteByProject(projectId: string): number {
-      let removed = 0;
-      for (const [id, task] of store) {
-        if (task.projectId === projectId) {
-          store.delete(id);
-          removed += 1;
-        }
-      }
-      return removed;
     },
     clear(): void {
       store.clear();

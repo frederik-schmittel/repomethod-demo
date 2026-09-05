@@ -1,23 +1,20 @@
 import { systemClock, type Clock } from "./lib/clock.js";
 import {
-  createInMemoryProjectRepository,
-  type ProjectRepository,
-} from "./repositories/projectRepository.js";
+  createInMemoryItemRepository,
+  type ItemRepository,
+} from "./repositories/itemRepository.js";
 import {
   createInMemoryTaskRepository,
   type TaskRepository,
 } from "./repositories/taskRepository.js";
-import {
-  createProjectService,
-  type ProjectService,
-} from "./services/projectService.js";
+import { createItemService, type ItemService } from "./services/itemService.js";
 import { createTaskService, type TaskService } from "./services/taskService.js";
 
 export interface Container {
   clock: Clock;
-  projectRepository: ProjectRepository;
+  itemRepository: ItemRepository;
   taskRepository: TaskRepository;
-  projectService: ProjectService;
+  itemService: ItemService;
   taskService: TaskService;
 }
 
@@ -27,20 +24,16 @@ export interface ContainerOverrides {
 
 export function createContainer(overrides: ContainerOverrides = {}): Container {
   const clock = overrides.clock ?? systemClock;
-  const projectRepository = createInMemoryProjectRepository();
+  const itemRepository = createInMemoryItemRepository();
   const taskRepository = createInMemoryTaskRepository();
-  const projectService = createProjectService(projectRepository, clock);
-  const taskService = createTaskService(
-    taskRepository,
-    projectRepository,
-    clock,
-  );
+  const itemService = createItemService(itemRepository, clock);
+  const taskService = createTaskService(taskRepository, clock);
 
   return {
     clock,
-    projectRepository,
+    itemRepository,
     taskRepository,
-    projectService,
+    itemService,
     taskService,
   };
 }

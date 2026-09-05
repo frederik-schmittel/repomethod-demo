@@ -3,12 +3,7 @@ import type { Container } from "../container.js";
 import type { CreateTaskInput, UpdateTaskInput } from "../domain/types.js";
 import { paginate, parsePagination } from "../lib/pagination.js";
 
-interface TaskListParams {
-  projectId: string;
-}
-
-interface TaskItemParams {
-  projectId: string;
+interface TaskParams {
   taskId: string;
 }
 
@@ -18,49 +13,38 @@ export async function taskRoutes(
 ): Promise<void> {
   const { taskService } = container;
 
-  app.get<{ Params: TaskListParams; Querystring: Record<string, unknown> }>(
-    "/projects/:projectId/tasks",
+  // Reference implementation of a paginated list endpoint: page + limit query
+  // params, defaults applied, invalid input rejected with 400, and a
+  // pagination metadata block on the response.
+  app.get<{ Querystring: Record<string, unknown> }>(
+    "/tasks",
     async (request) => {
-      const all = taskService.listByProject(request.params.projectId);
-      const pageRequest = parsePagination(request.query);
-      return paginate(all, pageRequest);
+      const all = taskService.list();
+      return paginate(all, parsePagination(request.query));
     },
   );
 
-  app.post<{ Params: TaskListParams; Body: CreateTaskInput }>(
-    "/projects/:projectId/tasks",
+  app.post<{ Body: CreateTaskInput }>("/tasks", async (request, reply) => {
+    const task = taskService.create(request.body ?? ({} as CreateTaskInput));
+    reply.code(201);
+    return task;
+  });
+
+  app.get<{ Params: TaskParams }>("/tasks/:taskId", async (request) => {
+    return taskService.get(request.params.taskId);
+  });
+
+  app.patch<{ Params: TaskParams; Body: UpdateTaskInput }>(
+    "/tasks/:taskId",
+    async (request) => {
+      return taskService.update(request.params.taskId, request.body ?? {});
+    },
+  );
+
+  app.delete<{ Params: TaskParams }>(
+    "/tasks/:taskId",
     async (request, reply) => {
-      const task = taskService.create(
-        request.params.projectId,
-        request.body ?? ({} as CreateTaskInput),
-      );
-      reply.code(201);
-      return task;
-    },
-  );
-
-  app.get<{ Params: TaskItemParams }>(
-    "/projects/:projectId/tasks/:taskId",
-    async (request) => {
-      return taskService.get(request.params.projectId, request.params.taskId);
-    },
-  );
-
-  app.patch<{ Params: TaskItemParams; Body: UpdateTaskInput }>(
-    "/projects/:projectId/tasks/:taskId",
-    async (request) => {
-      return taskService.update(
-        request.params.projectId,
-        request.params.taskId,
-        request.body ?? {},
-      );
-    },
-  );
-
-  app.delete<{ Params: TaskItemParams }>(
-    "/projects/:projectId/tasks/:taskId",
-    async (request, reply) => {
-      taskService.remove(request.params.projectId, request.params.taskId);
+      taskService.remove(request.params.taskId);
       reply.code(204);
       return null;
     },

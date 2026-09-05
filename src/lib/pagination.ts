@@ -1,22 +1,24 @@
-import { ValidationError } from "../domain/errors.js";
+import { BadRequestError } from "../domain/errors.js";
 
 export interface PageRequest {
+  page: number;
   limit: number;
-  offset: number;
 }
 
-export interface PageMeta {
-  total: number;
+export interface PaginationMeta {
+  page: number;
   limit: number;
-  offset: number;
+  total: number;
+  totalPages: number;
   hasMore: boolean;
 }
 
 export interface Page<T> {
   items: T[];
-  page: PageMeta;
+  pagination: PaginationMeta;
 }
 
+export const DEFAULT_PAGE = 1;
 export const DEFAULT_LIMIT = 20;
 export const MAX_LIMIT = 100;
 
@@ -30,39 +32,43 @@ function parseIntParam(
   }
   const value = typeof raw === "string" ? Number(raw) : NaN;
   if (!Number.isInteger(value)) {
-    throw new ValidationError(`${field} must be an integer`, { [field]: String(raw) });
+    throw new BadRequestError(`${field} must be an integer`, {
+      [field]: String(raw),
+    });
   }
   if (value < min || value > max) {
-    throw new ValidationError(
-      `${field} must be between ${min} and ${max}`,
-      { [field]: String(raw) },
-    );
+    throw new BadRequestError(`${field} must be between ${min} and ${max}`, {
+      [field]: String(raw),
+    });
   }
   return value;
 }
 
 export function parsePagination(query: Record<string, unknown>): PageRequest {
-  const limit = parseIntParam(query.limit, "limit", { min: 1, max: MAX_LIMIT });
-  const offset = parseIntParam(query.offset, "offset", {
-    min: 0,
+  const page = parseIntParam(query.page, "page", {
+    min: 1,
     max: Number.MAX_SAFE_INTEGER,
   });
+  const limit = parseIntParam(query.limit, "limit", { min: 1, max: MAX_LIMIT });
   return {
+    page: page ?? DEFAULT_PAGE,
     limit: limit ?? DEFAULT_LIMIT,
-    offset: offset ?? 0,
   };
 }
 
 export function paginate<T>(all: readonly T[], request: PageRequest): Page<T> {
-  const { limit, offset } = request;
+  const { page, limit } = request;
+  const offset = (page - 1) * limit;
   const slice = all.slice(offset, offset + limit);
+  const total = all.length;
   return {
     items: slice,
-    page: {
-      total: all.length,
+    pagination: {
+      page,
       limit,
-      offset,
-      hasMore: offset + slice.length < all.length,
+      total,
+      totalPages: Math.max(1, Math.ceil(total / limit)),
+      hasMore: offset + slice.length < total,
     },
   };
 }
