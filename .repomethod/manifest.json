@@ -1,0 +1,303 @@
+{
+  "version": "0.0.2",
+  "installed_at": "2026-09-06T09:39:36Z",
+  "profiles": [
+    "core"
+  ],
+  "files": {
+    ".github/workflows/repomethod-verify.yml": {
+      "sha256": "1009c7dc287b77e3b3b14d7566c7530531a915062d51e313f9623ee636b671dd",
+      "source": "blueprint"
+    },
+    ".github/pull_request_template.md": {
+      "sha256": "790fb3d802c9c23338cd896a1c5008c150e09abb202d843b9b8698778885f2af",
+      "source": "blueprint"
+    },
+    ".github/ISSUE_TEMPLATE/agent-task.yml": {
+      "sha256": "f3bcdc16f7585e10165295c18eb9fe2c570d8da6ab65cff6205fba0583239a54",
+      "source": "blueprint"
+    },
+    ".repomethod/verify-command": {
+      "sha256": "2fad4aeb07a897f1f28c2feb397ec3d309ead0ff07959c8c5b73aa6a0c8f8ffe",
+      "source": "blueprint"
+    },
+    ".repomethod/scope-ignore.txt": {
+      "sha256": "b01bccc50ae49e02f61619a4b62dd9307b3b8aa8ccbea7079649fec4cf85ac43",
+      "source": "blueprint"
+    },
+    ".repomethod/.gitignore": {
+      "sha256": "265fdd434c46252c88993490e0aeceb23a36b9d75aedf403c52a44528fcc8297",
+      "source": "blueprint"
+    },
+    ".repomethod/docs/PLAN_CONFORMANCE.md": {
+      "sha256": "f1f18858eef180c4eb3e0d898c6eac80bd3ac1a0eb77c780a87b0d2d47b1b1b4",
+      "source": "blueprint"
+    },
+    ".repomethod/docs/WORKFLOW_GRAPH.md": {
+      "sha256": "5e2d1fe871e7345b40ef301a493019075b39020638715d5572f79e87a84efda3",
+      "source": "blueprint"
+    },
+    ".repomethod/docs/INTENT_LINEAGE.md": {
+      "sha256": "927f305dca65b38c9da017708a8d7c32185369b79c55c9314cf0c0097a711d09",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/workflow-graph.sh": {
+      "sha256": "6f5c2b0f041bd5bc49e29a46520bfb8d73dddc7bc34d3744a1b9d61ca4cd0aac",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/verify-acceptance.sh": {
+      "sha256": "94317ea90c93658580d3fac9e7cc7751f5ab797a56f4172512217f68b122157e",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/verify-evidence.sh": {
+      "sha256": "ec3043cbb3ed4c005bb78301afd36cd5240930c876975d633d0fbd86b653b33f",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/verify.sh": {
+      "sha256": "f2327113b8077b04a4baab9d445aa5afec2cc09401de6ee72cc3bdddf30ae3f1",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/preflight.sh": {
+      "sha256": "7f4cfbd278e9e61f43cacfe2e3a83cc12e0a15e28636626e060fb900abba59d2",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/deliver.sh": {
+      "sha256": "68754c06ef27a9db0ec9027e540bceeaa992988974346836ebeb4d22fe531163",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/verify-scope.sh": {
+      "sha256": "e583d39ff66b21d5a3fb8ab749ab222028c33cd7fea87a0e620c51087a6dee66",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/plan-obligations.sh": {
+      "sha256": "93271f5d34a66c6c67b58a0823621b9bd2781a14913c423c07ae84488bd83b57",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/descope-ledger.sh": {
+      "sha256": "4735fd4bde44147e439f40cb8d0549e9ddabaac4c542d718907e5d89db0e2c02",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/adapters/python-model-json-schema.py": {
+      "sha256": "2d6a8268e8740b4fb2f263e394454cbc6048c66fa5c37a1ee0a2afa0b8d4405a",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/verify-provenance.sh": {
+      "sha256": "b69fee8a661d54586deb2c5029aaf982f5137ad71a017ec412a0274d07cc92ec",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/plan-conformance.sh": {
+      "sha256": "d6c6ecbccb376c48958fd3a8fdc701cf9f80fd7aae12b5823eca814f69c0ee0b",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/verify-invariants.sh": {
+      "sha256": "e5b92f5162f6a3e580d8be9e9487c656082dcfce1a848261e2e79848652cb700",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/verify-contracts.sh": {
+      "sha256": "98fe451fac3c5ba8bf4288a308bea9ebf12443cfef50bd7474b0c8cc1080cf62",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/verify-report.sh": {
+      "sha256": "08d81ceaeb055077071ac17fc252bbffe412ce0590b52ebb9cf96187878cffb2",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/agent-gate.sh": {
+      "sha256": "5ac08df5a92ac7330210d04471357b1d775c1d77dc3cba57e43f0bbd2144edbc",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/supervisor.sh": {
+      "sha256": "4ef364a78c35e8d1744c87b1ae6bec75bdddf0ec0e06432a11601a72b2dfd9c3",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/manage-skills.sh": {
+      "sha256": "325ab966e8ad67245371d1633b4ea99671c475a183c8cfb0fb1a0607ae02c8ff",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/feature-workflow.sh": {
+      "sha256": "86fc20219432e389929b1679a4745c21e90e5f4f473ab67079f5fdad9156be01",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/verify-forbidden.sh": {
+      "sha256": "7c5d91e2329c31b8272ef42c3bfc8ee6e045612149988ea0f3540484bb2c2d1b",
+      "source": "blueprint"
+    },
+    ".repomethod/scripts/intent-lineage.sh": {
+      "sha256": "402c05a0232909cb914888154eaf04fde8e48c4eca6c933f2ac22d85c26e56e8",
+      "source": "blueprint"
+    },
+    ".repomethod/templates/plan-conformance-rubric.md": {
+      "sha256": "68c5adceffa6e7fd89b9eb7179740a56ceadd537bf204ee1279c73f2d3e1a590",
+      "source": "blueprint"
+    },
+    ".repomethod/templates/spec-packet.md": {
+      "sha256": "758c754f48a8fc1ba295f5dd6289178c10da1d401a22a513fe91e25d1a5c91fd",
+      "source": "blueprint"
+    },
+    ".repomethod/templates/intent.md": {
+      "sha256": "2fb6a1b6601ca1c546dc68e65fe89c9eb67c204b5b8bf868901b6b34ad7c6aee",
+      "source": "blueprint"
+    },
+    ".repomethod/templates/plan.md": {
+      "sha256": "09c313138661d05cc7344560d6660b35454714c4048a070e218055be9056b6a4",
+      "source": "blueprint"
+    },
+    ".repomethod/templates/spec.md": {
+      "sha256": "a284df2bec8b2f654699bd58ff689bb685a7deaaf00cac201e96e18118da775b",
+      "source": "blueprint"
+    },
+    ".repomethod/protected-zones.txt": {
+      "sha256": "f1079e09ece43c0fcff97b697ba046cadd7cf8010df0deab8b53f5a3172cb297",
+      "source": "blueprint"
+    },
+    ".repomethod/skills/ship-pr/scripts/preflight.sh": {
+      "sha256": "f6fbc27225c568b35048ef4251d46d0a0b8fb7c7149126cc86b85927b07ad81e",
+      "source": "blueprint"
+    },
+    ".repomethod/skills/ship-pr/SKILL.md": {
+      "sha256": "8133b94fda24b3b460b6b79b5e26d4692e90cc0225ce177649c22329931de94c",
+      "source": "blueprint"
+    },
+    ".repomethod/skills/quick-mvp/SKILL.md": {
+      "sha256": "7ae5ed1f52993f56f6d07ca2db1e60bc9038330dfc88b364804fc50b326c2712",
+      "source": "blueprint"
+    },
+    ".repomethod/skills/repo-onboarding/scripts/generate-project-map.sh": {
+      "sha256": "8ccbee3675432504e736c6b2dbb5a1ee8bbf7b7318f042728ff8d4fafde21da9",
+      "source": "blueprint"
+    },
+    ".repomethod/skills/repo-onboarding/SKILL.md": {
+      "sha256": "279ae5dc1c9cda4777170a28a97892e0d69e72c5a0ee91bc781ae0c06460f07e",
+      "source": "blueprint"
+    },
+    ".repomethod/skills/classic-loop/SKILL.md": {
+      "sha256": "094f53b26ad4c2b840fade337a57c714bd4497c025d00589e8d9023b33396bde",
+      "source": "blueprint"
+    },
+    ".repomethod/skills/docs-sync/scripts/check-doc-references.sh": {
+      "sha256": "1f21e7d1707e3fc7b95685c098fb8bf3a96fd7bfaf2f991aa86c79000c0a75be",
+      "source": "blueprint"
+    },
+    ".repomethod/skills/docs-sync/SKILL.md": {
+      "sha256": "07c4cd48d0c4e11279e3e0c215da0a66bd9e5887f841a4971d5d8634ff7cb481",
+      "source": "blueprint"
+    },
+    ".repomethod/skills/scoped-delivery/scripts/validate-packet.sh": {
+      "sha256": "3b84fe620129f88fa0423e158f4d6953e385ea3bdf2a052e528ca394bbb5e159",
+      "source": "blueprint"
+    },
+    ".repomethod/skills/scoped-delivery/SKILL.md": {
+      "sha256": "ad58b8b95fd16b17fe79f864b867f92a6eac823f4dbeb59d380e97a4565ea6ec",
+      "source": "blueprint"
+    },
+    ".repomethod/skills/compliance-review/SKILL.md": {
+      "sha256": "ca7bcf8fc7da51678edc0ee82f663c6cd02f2ea528155bb6d6b78f14910d076f",
+      "source": "blueprint"
+    },
+    ".repomethod/skills/dependency-upgrade/SKILL.md": {
+      "sha256": "e1ef635a7cf3f1a44b96ee89a84cf54779628ff661b91553248e8e817664a0bb",
+      "source": "blueprint"
+    },
+    ".repomethod/skills/graph-delivery/SKILL.md": {
+      "sha256": "becb79a68d6f05a5163c5b1c448a0a0a84ce2805c7a1d70806e14aeda1f5b84e",
+      "source": "blueprint"
+    },
+    ".repomethod/skills/security-review/SKILL.md": {
+      "sha256": "ca120b8c333751f6c7130c93008041b8ee5e098600eedef99d824c16a592b029",
+      "source": "blueprint"
+    },
+    ".repomethod/AGENTS.md": {
+      "sha256": "266d8f489a189d4c2c2d0aec2ddd56bff8fffb727861819b404b87c98351d8a4",
+      "source": "blueprint"
+    },
+    "AGENTS.md": {
+      "sha256": "d6350fd3a11aa9445d28377b3078fe00543e6edfdce88709f0482421f48c2316",
+      "source": "pointer-block",
+      "created_whole_file_sha256": "10bffda6900b132f32ad716d3808e584bae008e1d1c81b9aaf831c36a6668989"
+    },
+    "CLAUDE.md": {
+      "sha256": "1fc88871514a8ca79e7ee727ecc6b0d7c306fd4c66e151b65a6bc45b652e1e79",
+      "source": "pointer-block",
+      "created_whole_file_sha256": "96c2f5e06b73ed52bd10635836e021b27d7dabac1589dce13b5b2f1205cf4e59"
+    },
+    ".agents/skills/classic-loop": {
+      "sha256": "../../.repomethod/skills/classic-loop",
+      "source": "skill-link"
+    },
+    ".claude/skills/classic-loop": {
+      "sha256": "../../.repomethod/skills/classic-loop",
+      "source": "skill-link"
+    },
+    ".agents/skills/compliance-review": {
+      "sha256": "../../.repomethod/skills/compliance-review",
+      "source": "skill-link"
+    },
+    ".claude/skills/compliance-review": {
+      "sha256": "../../.repomethod/skills/compliance-review",
+      "source": "skill-link"
+    },
+    ".agents/skills/dependency-upgrade": {
+      "sha256": "../../.repomethod/skills/dependency-upgrade",
+      "source": "skill-link"
+    },
+    ".claude/skills/dependency-upgrade": {
+      "sha256": "../../.repomethod/skills/dependency-upgrade",
+      "source": "skill-link"
+    },
+    ".agents/skills/docs-sync": {
+      "sha256": "../../.repomethod/skills/docs-sync",
+      "source": "skill-link"
+    },
+    ".claude/skills/docs-sync": {
+      "sha256": "../../.repomethod/skills/docs-sync",
+      "source": "skill-link"
+    },
+    ".agents/skills/graph-delivery": {
+      "sha256": "../../.repomethod/skills/graph-delivery",
+      "source": "skill-link"
+    },
+    ".claude/skills/graph-delivery": {
+      "sha256": "../../.repomethod/skills/graph-delivery",
+      "source": "skill-link"
+    },
+    ".agents/skills/quick-mvp": {
+      "sha256": "../../.repomethod/skills/quick-mvp",
+      "source": "skill-link"
+    },
+    ".claude/skills/quick-mvp": {
+      "sha256": "../../.repomethod/skills/quick-mvp",
+      "source": "skill-link"
+    },
+    ".agents/skills/repo-onboarding": {
+      "sha256": "../../.repomethod/skills/repo-onboarding",
+      "source": "skill-link"
+    },
+    ".claude/skills/repo-onboarding": {
+      "sha256": "../../.repomethod/skills/repo-onboarding",
+      "source": "skill-link"
+    },
+    ".agents/skills/scoped-delivery": {
+      "sha256": "../../.repomethod/skills/scoped-delivery",
+      "source": "skill-link"
+    },
+    ".claude/skills/scoped-delivery": {
+      "sha256": "../../.repomethod/skills/scoped-delivery",
+      "source": "skill-link"
+    },
+    ".agents/skills/security-review": {
+      "sha256": "../../.repomethod/skills/security-review",
+      "source": "skill-link"
+    },
+    ".claude/skills/security-review": {
+      "sha256": "../../.repomethod/skills/security-review",
+      "source": "skill-link"
+    },
+    ".agents/skills/ship-pr": {
+      "sha256": "../../.repomethod/skills/ship-pr",
+      "source": "skill-link"
+    },
+    ".claude/skills/ship-pr": {
+      "sha256": "../../.repomethod/skills/ship-pr",
+      "source": "skill-link"
+    }
+  }
+}
