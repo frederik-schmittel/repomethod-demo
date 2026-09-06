@@ -1,6 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import type { Container } from "../container.js";
 import type { CreateItemInput, UpdateItemInput } from "../domain/types.js";
+import { paginate, parsePagination } from "../lib/pagination.js";
 
 interface ItemParams {
   itemId: string;
@@ -12,11 +13,13 @@ export async function itemRoutes(
 ): Promise<void> {
   const { itemService } = container;
 
-  // NOTE: this endpoint returns every item at once. Pagination is intentionally
-  // not implemented here yet; see specs/add-items-pagination.md.
-  app.get("/items", async () => {
-    return { items: itemService.list() };
-  });
+  app.get<{ Querystring: Record<string, unknown> }>(
+    "/items",
+    async (request) => {
+      const all = itemService.list();
+      return paginate(all, parsePagination(request.query));
+    },
+  );
 
   app.post<{ Body: CreateItemInput }>("/items", async (request, reply) => {
     const item = itemService.create(request.body ?? ({} as CreateItemInput));
