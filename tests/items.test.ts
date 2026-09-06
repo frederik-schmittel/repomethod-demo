@@ -11,6 +11,12 @@ afterEach(async () => {
   await app.close();
 });
 
+async function seedItems(count: number): Promise<void> {
+  for (let i = 0; i < count; i += 1) {
+    await createItem(app, `Item ${i + 1}`);
+  }
+}
+
 test("creates and reads an item", async () => {
   const created = await app.inject({
     method: "POST",
@@ -36,16 +42,46 @@ test("rejects an item without a name", async () => {
   expect(response.json().error.code).toBe("validation_error");
 });
 
-test("GET /items returns every item under an items key", async () => {
-  await createItem(app, "One");
-  await createItem(app, "Two");
-  await createItem(app, "Three");
+test("GET /items is paginated with a pagination block", async () => {
+  await seedItems(25);
 
+  const first = await app.inject({ method: "GET", url: "/items?limit=10" });
+  expect(first.statusCode).toBe(200);
+  expect(first.json().items).toHaveLength(10);
+  expect(first.json().pagination).toMatchObject({
+    page: 1,
+    limit: 10,
+    total: 25,
+    totalPages: 3,
+    hasMore: true,
+  });
+
+  const last = await app.inject({
+    method: "GET",
+    url: "/items?page=3&limit=10",
+  });
+  expect(last.json().items).toHaveLength(5);
+  expect(last.json().pagination.hasMore).toBe(false);
+});
+
+test("GET /items applies pagination defaults", async () => {
+  await seedItems(3);
   const response = await app.inject({ method: "GET", url: "/items" });
-  expect(response.statusCode).toBe(200);
-  const body = response.json();
-  expect(Array.isArray(body.items)).toBe(true);
-  expect(body.items).toHaveLength(3);
+  expect(response.json().pagination).toMatchObject({ page: 1, limit: 20 });
+});
+
+test("GET /items rejects invalid pagination with 400", async () => {
+  const invalidLimit = await app.inject({
+    method: "GET",
+    url: "/items?limit=999",
+  });
+  expect(invalidLimit.statusCode).toBe(400);
+
+  const invalidPage = await app.inject({
+    method: "GET",
+    url: "/items?page=abc",
+  });
+  expect(invalidPage.statusCode).toBe(400);
 });
 
 test("updates an item name", async () => {
